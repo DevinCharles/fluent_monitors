@@ -17,7 +17,19 @@ from bokeh.core.enums import LegendLocation
 import itertools 
 
 ## Data Parsing
-from fluent_tui.utils import parse_outfile, parse_residuals, fluent_connect
+try:
+    from fluent_tui.utils import parse_outfile, parse_residuals, fluent_connect
+except ModuleNotFoundError:
+    try:
+        import sys
+        import os
+        sys.path.append(os.environ['USERPROFILE']+'\\Documents\\GitHub')
+        from fluent_tui.utils import parse_outfile, parse_residuals, fluent_connect
+    except:
+        print('You need to add fluent_tui to your python path.')
+        print('Get it here:')
+        print('\thttps://github.com/DevinCharles/fluent_tui.git')
+        print('And add it to $HOME\\Documents\\GitHub')
 import pandas as pd
 import numpy as np
 import re
@@ -365,7 +377,11 @@ def desc_source(source):
     
 ## Get the Fluent Working Directory
 pprint('Connecting to Fluent')
-cwd = fluent_connect(verbose=True)
+try:
+    cwd = fluent_connect(verbose=True)
+except:
+    cwd = os.environ['USERPROFILE']+'\\Documents\\fluent_watch\\'
+    print('Failed to find a local running fluent process, watching '+cwd)
 ## Parse Config
 pprint('Reading Configuration File')
 cfg = config_parse(cwd)

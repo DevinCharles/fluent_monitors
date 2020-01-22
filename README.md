@@ -16,7 +16,7 @@ I don't expect to support this much in the future besides a few bug fixes here a
 
 - Reconfigurable plot layout through `monitors.ini` file
 
-- Accessable from host ip address anywhere on your network
+- Accessible from host ip address anywhere on your network
 
 ![monitors](static/monitors.png)
 
